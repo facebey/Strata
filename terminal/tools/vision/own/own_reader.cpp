@@ -129,7 +129,7 @@ int own_reader_run(const OwnReaderOptions& o) {
         const auto t0 = clock::now();
         ImageU8 src;
         PreparedImage prep;
-        if (!image_load_file(img, src, err)) { std::printf("ERR cannot read the image %s\n", img.c_str()); std::fflush(stdout); continue; }
+        if (!image_load_file(img, src, err)) { std::printf("ERR cannot read the image %s (%s)\n", img.c_str(), err.c_str()); std::fflush(stdout); continue; }
         if (!prepare_image(src, geo, o.min_tokens, o.max_tokens, prep, err)) { std::printf("ERR the image could not be preprocessed (%s)\n", err.c_str()); std::fflush(stdout); continue; }
         const int n_expect = (prep.w / geo.align()) * (prep.h / geo.align());
         // never silently produce many times the budget (I7, #3690): over the limit (a rounding margin of an eighth) the picture is refused
